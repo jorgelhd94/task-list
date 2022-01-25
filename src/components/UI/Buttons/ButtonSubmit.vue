@@ -19,8 +19,9 @@ const props = defineProps({
       type="submit"
       :disabled="loading"
     >
-      <i v-show="loading" class="fas fa-spinner fa-spin mr-1"></i>
-      {{ props.label }}
+      <p v-show="loading">Loading..</p>
+      <p v-show="!loading">{{ props.label }}</p>
+      
     </button>
   </div>
 </template>

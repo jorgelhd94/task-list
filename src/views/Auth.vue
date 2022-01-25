@@ -15,15 +15,18 @@ function changeSign() {
   <div
     class="flex flex-wrap w-full overflow-y-hidden gradient py-8 items-center justify-center"
   >
-    <div class="flex-none relative w-full md:w-2/3 lg:w-1/3 bg-gray-200 rounded-lg shadow">
+    <div
+      class="flex-none relative w-full md:w-2/3 lg:w-1/3 bg-gray-200 rounded-lg shadow"
+    >
+
       <div class="flex flex-col p-8 items-center">
-        <h1>Welcome to my site</h1>
+        <h1>Simple Task List</h1>
 
         <div class="flex-1 mt-4">
           <div class="flex flex-row">
             <Button
               label="Sign In"
-              icon="door-open"
+              icon="key"
               :active="login"
               @click="changeSign"
             />
@@ -45,7 +48,7 @@ function changeSign() {
         </div>
 
         <div v-show="!login" class="flex-auto w-full mt-4">
-          <Register @change-to-login="changeSign"/>
+          <Register @change-to-login="changeSign" />
         </div>
       </div>
 

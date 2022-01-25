@@ -50,7 +50,7 @@ function logout() {
         <div class="flex items-center justify-between h-16">
           <div class="flex items-center">
             <router-link to="/" class="flex-shrink-0">
-              <h1 class="h-8 w-8 text-lg">TestApp</h1>
+              <h1 class="h-8 w-full text-lg">Simple Task List</h1>
               <!-- <img class="h-8 w-8" src="/icons/rocket.svg" alt="Workflow" /> -->
             </router-link>
           </div>

@@ -24,8 +24,14 @@ onMounted(() => {
     // This is a click outside.
     menuOpen.value = false;
   });
-});
 
+  window.addEventListener('click', function (e) {
+    if (!document.getElementById('options-menu').contains(e.target)) {
+      // Clicked in box
+      menuOpen.value = false;
+    }
+  });
+});
 
 function toogleMenu() {
   menuOpen.value = !menuOpen.value;
@@ -37,7 +43,7 @@ function logout() {
     showMsg('Session was terminated successfully', 'info');
     router.push({
       name: 'login',
-    });    
+    });
   } catch (error) {
     showMsg('Error!! ' + error, 'error');
   }

@@ -26,7 +26,7 @@ const props = defineProps({
         'bg-white': !props.active,
       }"
     >
-      <icon class="mr-2 fas" :name="props.icon" size="14"></icon>
+      <icon class="mr-2 fas" :name="props.icon" :size="14"></icon>
       {{ props.label }}
     </button>
   </div>

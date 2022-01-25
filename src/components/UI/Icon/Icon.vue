@@ -7,6 +7,10 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  color: {
+    type: String,
+    default: 'black',
+  },
   size: {
     type: Number,
     required: true,
@@ -17,6 +21,7 @@ function iconSvg() {
   return feather.icons[props.name].toSvg({
     width: props.size,
     height: props.size,
+    color: props.color,
   });
 }
 </script>

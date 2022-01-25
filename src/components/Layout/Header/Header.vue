@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import { showMsg } from '../../../includes/utils';
@@ -8,29 +8,19 @@ const router = useRouter();
 const store = useStore();
 const menuOpen = ref(false);
 
-onMounted(() => {
-  document.addEventListener('click', (evt) => {
-    const optionMenu = document.getElementById('options-menu');
-    let targetEl = evt.target; // clicked element
-
-    do {
-      if (targetEl == optionMenu) {
-        // This is a click inside, does nothing, just return.
-        return;
-      }
-      // Go up the DOM
-      targetEl = targetEl.parentNode;
-    } while (targetEl);
-    // This is a click outside.
+function handlerMenu(e) {
+  if (!document.getElementById('options-menu').contains(e.target)) {
+    // Clicked in box
     menuOpen.value = false;
-  });
+  }
+}
 
-  window.addEventListener('click', function (e) {
-    if (!document.getElementById('options-menu').contains(e.target)) {
-      // Clicked in box
-      menuOpen.value = false;
-    }
-  });
+onMounted(() => {
+  window.addEventListener('click', handlerMenu);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('click', handlerMenu);
 });
 
 function toogleMenu() {

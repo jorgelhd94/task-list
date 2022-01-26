@@ -6,6 +6,14 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  customClass: {
+    type: String,
+    default: '',
+  },
+  iconClass: {
+    type: String,
+    default: '',
+  },
   showIcon: {
     type: Boolean,
     default: true,
@@ -28,20 +36,17 @@ const props = defineProps({
 <template>
   <div>
     <button
-      class="font-medium px-2 lg:px-4 py-2 bg-active lg:border rounded inline-flex items-center text-gray text-base font-bold text-xs ease-linear transition-all duration-150"
-      :class="{
-        opacity: props.active,
-        'opacity-50': !props.active,
-      }"
+      class="font-medium px-2 lg:px-4 py-2 rounded inline-flex items-center text-base font-bold text-xs ease-linear transition-all duration-150"
+      :class="[props.active ? 'opacity' : 'opacity-50', props.customClass]"
     >
       <icon
         v-if="props.showIcon"
         class="lg:mr-2"
+        :class="props.iconClass"
         :name="props.icon"
         :size="24"
         :color="props.iconColor"
       ></icon>
-      <slot></slot>
 
       <span class="hidden lg:inline">
         {{ props.label }}
@@ -52,10 +57,6 @@ const props = defineProps({
 
 <style scoped>
 .bg-active {
-  background-color: transparent;
-}
-
-.text-gray {
-  color: #8a94a6;
+  background-color: #eaf0f5;
 }
 </style>

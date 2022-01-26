@@ -6,11 +6,11 @@ const emit = defineEmits(['clickBtn']);
 </script>
 
 <template>
-  <div class="flex mb-2 p-2" @click="emit('clickBtn')">
+  <div class="flex mb-2 p-2 items-center" @click="emit('clickBtn')">
     <div
-      class="flex-none w-6 h-6 border-2 border-primary rounded mr-3 active:opacity-30"
+      class="flex-none w-5 h-5 ring-2 ring-blue-500 text-center rounded mr-3 active:opacity-30"
     >
-      <Icon name="plus" :size="20" color="#007fff" />
+      <Icon name="plus" :size="20" color="#007fff"/>
     </div>
     <div class="flex-auto text-gray">Type to add new task</div>
   </div>
@@ -19,9 +19,6 @@ const emit = defineEmits(['clickBtn']);
 <style scoped>
 div {
   cursor: pointer;
-}
-.border-primary {
-  border-color: #007fff;
 }
 
 .text-gray {

@@ -36,7 +36,7 @@ onUnmounted(() => {
     <div class="flex-auto">
       <div class="flex flex-row mb-4 p-2">
         <!-- Plus Button -->
-        <div class="flex-none w-6 h-6 border-2 border-primary rounded mr-2">
+        <div class="flex-none w-5 h-5 ring-2 ring-blue-500 rounded mr-2">
           <Icon name="plus" :size="20" color="#007fff" />
         </div>
         <!-- Editor -->
@@ -75,7 +75,4 @@ onUnmounted(() => {
   border-color: #f1f3f4;
 }
 
-.border-primary {
-  border-color: #007fff;
-}
 </style>

@@ -5,7 +5,12 @@ module.exports = {
     fontFamily: {
       sans: ['Roboto', 'sans-serif'],
     },
-    extend: {},
+    extend: {
+      screens: {
+        lg: '1230px',
+        // => @media (min-width: 1024px) { ... }
+      },
+    },
   },
   variants: {
     extend: {},

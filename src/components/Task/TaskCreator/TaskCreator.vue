@@ -1,12 +1,28 @@
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { computed, onMounted, onUnmounted } from 'vue';
 import TaskEditor from './TaskCreatorEditor/TaskCreatorEditor.vue';
 import TaskFooter from './TaskCreatorFooter/TaskCreatorFooter.vue';
 import Icon from '../../UI/Icon/Icon.vue';
 
 // eslint-disable-next-line no-undef
-const emit = defineEmits(['clickClose']);
+const props = defineProps({
+  taskText: {
+    type: String,
+    required: true,
+  },
+});
+
+// eslint-disable-next-line no-undef
+const emit = defineEmits(['clickClose', 'textEditor']);
 let flag = 0;
+
+onMounted(() => {
+  window.addEventListener('click', handler);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('click', handler);
+});
 
 function handler(e) {
   const elem = document.getElementById('creator-container');
@@ -18,19 +34,11 @@ function handler(e) {
   }
 }
 
-onMounted(() => {
-  window.addEventListener('click', handler);
-});
-
-onUnmounted(() => {
-  window.removeEventListener('click', handler);
-});
-
-const taskText = ref('');
-const isTextEmpty = computed(() => taskText.value.length === 0);
+// Manage Text
+const isTextEmpty = computed(() => props.taskText.length === 0);
 
 function updateText(text) {
-  taskText.value = text;
+  emit('textEditor', text);
 }
 </script>
 
@@ -47,7 +55,7 @@ function updateText(text) {
         </div>
         <!-- Editor -->
         <div class="flex-auto">
-          <TaskEditor :task-text="taskText" @update-text="updateText" />
+          <TaskEditor :task-text="props.taskText" @update-text="updateText" />
         </div>
         <!-- User Icon -->
         <div class="flex-none">
@@ -58,7 +66,8 @@ function updateText(text) {
               width="20"
               fill="currentColor"
               height="20"
-              class="text-gray-800 opacity-40"
+              class="text-gray-800"
+              :class="{ 'opacity-40': isTextEmpty }"
               viewBox="0 0 1792 1792"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -71,7 +80,10 @@ function updateText(text) {
       </div>
     </div>
     <div class="flex-auto">
-      <TaskFooter :is-text-empty="isTextEmpty" @click-cancel="emit('clickClose')" />
+      <TaskFooter
+        :is-text-empty="isTextEmpty"
+        @click-cancel="emit('clickClose')"
+      />
     </div>
   </div>
 </template>

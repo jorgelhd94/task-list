@@ -1,5 +1,7 @@
 <script setup>
 import { computed, onMounted, onUnmounted } from 'vue';
+import { getAuth, taskCollection, addDoc } from '../../../includes/firebase';
+import { showMsg } from '../../../includes/utils';
 import TaskEditor from './TaskCreatorEditor/TaskCreatorEditor.vue';
 import TaskFooter from './TaskCreatorFooter/TaskCreatorFooter.vue';
 import Icon from '../../UI/Icon/Icon.vue';
@@ -39,6 +41,25 @@ const isTextEmpty = computed(() => props.taskText.length === 0);
 
 function updateText(text) {
   emit('textEditor', text);
+}
+
+async function submitTask() {
+  const task = {
+    task: props.taskText,
+    isDone: false,
+    modified_on: new Date().toString(),
+    uid: getAuth().currentUser.uid,
+  };
+
+  try {
+    await addDoc(taskCollection, {
+      ...task,
+    });
+
+    showMsg('Task was created successfully!!', 'info');
+  } catch (error) {
+    showMsg('Error adding task ' + error, 'danger');
+  }
 }
 </script>
 
@@ -83,6 +104,7 @@ function updateText(text) {
       <TaskFooter
         :is-text-empty="isTextEmpty"
         @click-cancel="emit('clickClose')"
+        @click-submit="submitTask"
       />
     </div>
   </div>

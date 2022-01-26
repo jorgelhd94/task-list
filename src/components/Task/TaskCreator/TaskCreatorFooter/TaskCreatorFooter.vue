@@ -11,7 +11,7 @@ const props = defineProps({
 });
 
 // eslint-disable-next-line no-undef
-const emit = defineEmits(['clickCancel']);
+const emit = defineEmits(['clickCancel', 'clickSubmit']);
 </script>
 
 <template>
@@ -84,7 +84,7 @@ const emit = defineEmits(['clickCancel']);
           icon-class="inline lg:hidden "
           custom-class="bg-blue-700 text-white"
           :active="true"
-          @click="props.isTextEmpty ? emit('clickCancel') : null"
+          @click="props.isTextEmpty ? emit('clickCancel') : emit('clickSubmit')"
         />
       </div>
     </div>

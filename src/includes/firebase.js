@@ -6,7 +6,13 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from 'firebase/auth';
-import { getFirestore, collection, doc, setDoc } from 'firebase/firestore';
+import {
+  getFirestore,
+  collection,
+  doc,
+  setDoc,
+  addDoc,
+} from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBTN_CtRmCVS9gOX3L3j6mzERoAI4bVGfY',
@@ -22,6 +28,7 @@ const firebase = initializeApp(firebaseConfig);
 
 const db = getFirestore();
 const userCollection = collection(db, 'users');
+const taskCollection = collection(db, 'tasks');
 
 export {
   firebase,
@@ -31,6 +38,8 @@ export {
   signInWithEmailAndPassword,
   signOut,
   userCollection,
+  taskCollection,
   doc,
   setDoc,
+  addDoc,
 };

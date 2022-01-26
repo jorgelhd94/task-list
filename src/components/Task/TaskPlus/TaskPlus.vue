@@ -6,7 +6,7 @@ const emit = defineEmits(['clickBtn']);
 </script>
 
 <template>
-  <div class="flex mb-2 p-4" @click="emit('clickBtn')">
+  <div class="flex mb-2 p-2" @click="emit('clickBtn')">
     <div
       class="flex-none w-6 h-6 border-2 border-primary rounded mr-3 active:opacity-30"
     >

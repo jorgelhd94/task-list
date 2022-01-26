@@ -1,19 +1,18 @@
 <script setup>
-import { onMounted, onUnmounted } from 'vue';
+import { ref, computed, onMounted, onUnmounted } from 'vue';
 import TaskEditor from './TaskCreatorEditor/TaskCreatorEditor.vue';
 import TaskFooter from './TaskCreatorFooter/TaskCreatorFooter.vue';
 import Icon from '../../UI/Icon/Icon.vue';
 
 // eslint-disable-next-line no-undef
-const emit = defineEmits(['clickOutside']);
+const emit = defineEmits(['clickClose']);
 let flag = 0;
 
 function handler(e) {
   const elem = document.getElementById('creator-container');
   if (elem) {
     if (!elem.contains(e.target)) {
-      //   emit('clickOutside');
-      if (flag === 1) emit('clickOutside');
+      if (flag === 1) emit('clickClose');
       flag++;
     }
   }
@@ -26,6 +25,13 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('click', handler);
 });
+
+const taskText = ref('');
+const isTextEmpty = computed(() => taskText.value.length === 0);
+
+function updateText(text) {
+  taskText.value = text;
+}
 </script>
 
 <template>
@@ -41,7 +47,7 @@ onUnmounted(() => {
         </div>
         <!-- Editor -->
         <div class="flex-auto">
-          <TaskEditor />
+          <TaskEditor :task-text="taskText" @update-text="updateText" />
         </div>
         <!-- User Icon -->
         <div class="flex-none">
@@ -65,7 +71,7 @@ onUnmounted(() => {
       </div>
     </div>
     <div class="flex-auto">
-      <TaskFooter />
+      <TaskFooter :is-text-empty="isTextEmpty" @click-cancel="emit('clickClose')" />
     </div>
   </div>
 </template>
@@ -74,5 +80,4 @@ onUnmounted(() => {
 .border-color {
   border-color: #f1f3f4;
 }
-
 </style>

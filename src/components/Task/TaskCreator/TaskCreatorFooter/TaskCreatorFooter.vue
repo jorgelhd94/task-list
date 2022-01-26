@@ -1,10 +1,17 @@
 <script setup>
-import { ref } from 'vue';
 import ButtonControl from '../../../UI/Buttons/ButtonControl.vue';
 import ButtonOption from '../../../UI/Buttons/ButtonOption.vue';
 
-const submitLabel = ref('Ok');
-const submitIcon = ref('x');
+// eslint-disable-next-line no-undef
+const props = defineProps({
+  isTextEmpty: {
+    type: Boolean,
+    required: true,
+  },
+});
+
+// eslint-disable-next-line no-undef
+const emit = defineEmits(['clickCancel']);
 </script>
 
 <template>
@@ -18,7 +25,7 @@ const submitIcon = ref('x');
         icon="maximize-2"
         icon-color="#4E5D78"
         custom-class="bg-gray-200"
-        :active="false"
+        :active="!props.isTextEmpty"
       />
     </div>
     <!-- Options -->
@@ -28,27 +35,27 @@ const submitIcon = ref('x');
           label="Today"
           icon="calendar"
           icon-color="#8A94A6"
-          :active="false"
+          :active="!props.isTextEmpty"
           class="mr-1 md:mb-0 sm:mb-2"
         />
         <ButtonOption
           label="Public"
           icon="unlock"
           icon-color="#8A94A6"
-          :active="false"
+          :active="!props.isTextEmpty"
           class="mr-1 md:mb-0 sm:mb-2"
         />
         <ButtonOption
           label="Normal"
           icon="sun"
           icon-color="#8A94A6"
-          :active="false"
+          :active="!props.isTextEmpty"
           class="mr-1 md:mb-0 sm:mb-2"
         />
         <ButtonOption
           label="Estimation"
           :show-icon="false"
-          :active="false"
+          :active="!props.isTextEmpty"
           class="md:mb-0 sm:mb-2"
         >
           <span
@@ -67,15 +74,17 @@ const submitIcon = ref('x');
           :active="true"
           custom-class="bg-gray-200"
           class="mr-2 hidden lg:inline"
+          @click="emit('clickCancel')"
         />
         <ButtonControl
-          :label="submitLabel"
+          :label="props.isTextEmpty ? 'Ok' : 'Add'"
           :show-icon="true"
-          :icon="submitIcon"
+          :icon="props.isTextEmpty ? 'x' : 'plus'"
           icon-color="#ffffff"
-          icon-class ="inline lg:hidden "
+          icon-class="inline lg:hidden "
           custom-class="bg-blue-700 text-white"
           :active="true"
+          @click="props.isTextEmpty ? emit('clickCancel') : null"
         />
       </div>
     </div>

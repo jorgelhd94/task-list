@@ -9,6 +9,6 @@ const showCreator = ref(false);
 <template>
   <div>
     <TaskPlus v-if="!showCreator" @click-btn="showCreator = true" />
-    <TaskCreator v-if="showCreator" @click-outside="showCreator = false" />
+    <TaskCreator v-if="showCreator" @click-close="showCreator = false" />
   </div>
 </template>

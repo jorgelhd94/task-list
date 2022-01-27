@@ -1,4 +1,6 @@
 <script setup>
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 import ButtonControl from '../../../UI/Buttons/ButtonControl.vue';
 import ButtonOption from '../../../UI/Buttons/ButtonOption.vue';
 
@@ -12,6 +14,9 @@ const props = defineProps({
 
 // eslint-disable-next-line no-undef
 const emit = defineEmits(['clickCancel', 'clickSubmit']);
+
+const store = useStore();
+const isCreating = computed(() => store.state.task.isCreating);
 </script>
 
 <template>
@@ -78,6 +83,7 @@ const emit = defineEmits(['clickCancel', 'clickSubmit']);
         />
         <ButtonControl
           :label="props.isTextEmpty ? 'Ok' : 'Add'"
+          :is-loading="isCreating"
           :show-icon="true"
           :icon="props.isTextEmpty ? 'x' : 'plus'"
           icon-color="#ffffff"

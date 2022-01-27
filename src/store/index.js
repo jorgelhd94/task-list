@@ -1,8 +1,11 @@
 import { createStore } from 'vuex';
 import { getAuth, signOut } from '../includes/firebase';
-
+import task from './task';
 
 export default createStore({
+  modules: {
+    task,
+  },
   state() {
     return {
       userLoggedIn: false,
@@ -24,5 +27,5 @@ export default createStore({
       await signOut(getAuth());
       commit('toogleAuth');
     },
-  }
+  },
 });

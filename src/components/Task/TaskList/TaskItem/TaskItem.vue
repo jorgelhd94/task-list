@@ -23,7 +23,6 @@ async function changeState() {
     isDone: !props.task.isDone,
   });
 }
-
 </script>
 
 <template>
@@ -31,7 +30,7 @@ async function changeState() {
     v-if="!showUpdate"
     class="flex flex-row flex-nowrap w-full justify-between items-center my-4 cursor-pointer"
   >
-    <div class="flex p-1 items-center">
+    <div class="flex-auto p-1 items-center">
       <div
         class="flex-none w-7 h-7 text-center rounded mr-3 active:opacity-30"
         :class="[props.task.isDone ? 'bg-gray-400' : 'border border-gray-500']"
@@ -47,10 +46,15 @@ async function changeState() {
       </div>
     </div>
 
-    <div class="flex-auto" @click="showUpdate = true" v-html="task.task"></div>
+    <div
+      class="flex-auto w-3/5 md:w-4/5"
+      contenteditable="true"
+      @click="showUpdate = true"
+      v-html="task.task"
+    ></div>
 
     <div
-      class="bg-gray-200 px-3 rounded-full text-gray-400 font-medium inline-flex items-center"
+      class="flex-none w-max bg-gray-200 px-3 rounded-full text-gray-400 font-medium inline-flex items-center"
       style="color: rgb(138, 148, 166)"
     >
       <Icon

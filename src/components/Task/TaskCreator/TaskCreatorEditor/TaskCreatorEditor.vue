@@ -1,4 +1,5 @@
 <script setup>
+/* eslint-disable vue/no-v-html */
 import { onMounted } from 'vue';
 
 // eslint-disable-next-line no-undef
@@ -16,7 +17,7 @@ onMounted(() => {
   setCursorLast();
 });
 
-function setCursorLast() {
+function setCursorLast(position) {
   let tag = document.getElementById('editor');
 
   if (tag.childNodes.length > 0) {
@@ -26,8 +27,9 @@ function setCursorLast() {
     // Creates object for selection
     let set = window.getSelection();
 
+    const setPosition = position || tag.childNodes[0].length;
     // Set start position of range
-    setpos.setStart(tag.childNodes[0], tag.childNodes[0].length);
+    setpos.setStart(tag.childNodes[0], setPosition);
 
     // Collapse range within its boundary points
     // Returns boolean
@@ -45,20 +47,29 @@ function setCursorLast() {
 }
 
 function inputEditor(event) {
-emit('updateText', event.target.textContent)
+  emit('updateText', event.target.innerHTML);
+}
+
+function keyPress(event) {
+  if (event.which !== 13) {
+    inputEditor(event);
+  } else {
+    event.preventDefault();
+  }
 }
 </script>
 
 <template>
   <div
+    v-once
     id="editor"
     class="px-2 focus:border-0"
     data-placeholder="Type to add new task"
     contenteditable
+    @keydown="keyPress"
     @input="inputEditor"
-  >
-    {{ props.taskText }}
-  </div>
+    v-html="props.taskText"
+  ></div>
 </template>
 
 <style scoped>

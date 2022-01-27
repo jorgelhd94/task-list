@@ -16,6 +16,7 @@ const props = defineProps({
 
 // eslint-disable-next-line no-undef
 const emit = defineEmits(['clickClose', 'textEditor']);
+
 let flag = 0;
 
 onMounted(() => {
@@ -30,7 +31,10 @@ function handler(e) {
   const elem = document.getElementById('creator-container');
   if (elem) {
     if (!elem.contains(e.target)) {
-      if (flag === 1) emit('clickClose');
+      if (flag === 1) {
+        emit('clickClose');
+        updateText(props.taskText);
+      }
       flag++;
     }
   }
@@ -43,6 +47,7 @@ function updateText(text) {
   emit('textEditor', text);
 }
 
+// Submit task
 async function submitTask() {
   const task = {
     task: props.taskText,

@@ -30,7 +30,7 @@ async function changeState() {
     v-if="!showUpdate"
     class="flex flex-row flex-nowrap w-full justify-between items-center my-4 cursor-pointer"
   >
-    <div class="flex-auto p-1 items-center">
+    <div class="flex-none p-1 items-center">
       <div
         class="flex-none w-7 h-7 text-center rounded mr-3 active:opacity-30"
         :class="[props.task.isDone ? 'bg-gray-400' : 'border border-gray-500']"

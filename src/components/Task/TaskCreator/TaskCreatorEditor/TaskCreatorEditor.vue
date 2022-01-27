@@ -52,7 +52,7 @@ emit('updateText', event.target.textContent)
 <template>
   <div
     id="editor"
-    class="w-full px-2 focus:border-0"
+    class="px-2 focus:border-0"
     data-placeholder="Type to add new task"
     contenteditable
     @input="inputEditor"

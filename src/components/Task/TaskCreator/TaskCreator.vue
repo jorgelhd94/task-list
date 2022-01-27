@@ -68,20 +68,20 @@ async function submitTask() {
     id="creator-container"
     class="flex flex-col border border-color rounded mb-4 shadow-md"
   >
-    <div class="flex-auto">
-      <div class="flex flex-row mb-4 p-2">
+    <div class="flex-none">
+      <div class="flex flex-row flex-nowrap justify-between mb-4 p-2">
         <!-- Plus Button -->
         <div class="flex-none w-5 h-5 ring-2 ring-blue-500 rounded mr-2">
           <Icon name="plus" :size="20" color="#007fff" />
         </div>
         <!-- Editor -->
-        <div class="flex-auto">
+        <div class="flex-auto w-4/5">
           <TaskEditor :task-text="props.taskText" @update-text="updateText" />
         </div>
         <!-- User Icon -->
-        <div class="flex-none">
+        <div class="flex-none w-5 h-5">
           <div
-            class="flex items-center justify-center w-full rounded-md text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-gray-500"
+            class="flex items-center justify-center rounded-md text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-gray-500"
           >
             <svg
               width="20"

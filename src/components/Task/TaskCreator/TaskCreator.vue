@@ -56,6 +56,8 @@ async function submitTask() {
   try {
     await store.dispatch('task/createTask', props.taskText);
     showMsg('Task was created successfully!!', 'info');
+    emit('textEditor', '');
+    emit('clickClose');
   } catch (error) {
     showMsg('Error adding task ' + error, 'danger');
   }

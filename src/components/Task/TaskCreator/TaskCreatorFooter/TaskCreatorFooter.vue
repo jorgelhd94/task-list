@@ -17,6 +17,14 @@ const emit = defineEmits(['clickCancel', 'clickSubmit']);
 
 const store = useStore();
 const isCreating = computed(() => store.state.task.isCreating);
+
+function submitButton() {
+  if (props.isTextEmpty) {
+    emit('clickCancel');
+  } else if (!isCreating.value) {
+    emit('clickSubmit');
+  }
+}
 </script>
 
 <template>
@@ -90,7 +98,7 @@ const isCreating = computed(() => store.state.task.isCreating);
           icon-class="inline lg:hidden "
           custom-class="bg-blue-700 text-white"
           :active="true"
-          @click="props.isTextEmpty ? emit('clickCancel') : emit('clickSubmit')"
+          @click="submitButton"
         />
       </div>
     </div>

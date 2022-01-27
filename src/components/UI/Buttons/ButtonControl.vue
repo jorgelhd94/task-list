@@ -42,6 +42,7 @@ const props = defineProps({
     <button
       class="font-medium px-2 lg:px-4 py-2 rounded inline-flex items-center text-base font-bold text-xs ease-linear transition-all duration-150"
       :class="[props.active ? 'opacity' : 'opacity-50', props.customClass]"
+      :disabled="isLoading"
     >
       <span v-show="!isLoading" class="inline-flex">
         <icon
@@ -78,5 +79,9 @@ const props = defineProps({
 <style scoped>
 .bg-active {
   background-color: #eaf0f5;
+}
+
+button[disabled] {
+  cursor: not-allowed;
 }
 </style>

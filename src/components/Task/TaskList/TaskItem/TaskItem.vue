@@ -1,7 +1,9 @@
 <script setup>
 /* eslint-disable vue/no-v-html */
+import { ref } from 'vue';
 import { useStore } from 'vuex';
 import Icon from '../../../UI/Icon/Icon.vue';
+import TaskUpdate from '../../TaskUpdate/TaskUpdate.vue';
 import { formatDate } from '../../../../includes/utils';
 
 // eslint-disable-next-line no-undef
@@ -13,6 +15,7 @@ const props = defineProps({
 });
 
 const store = useStore();
+const showUpdate = ref(false);
 
 async function changeState() {
   store.dispatch('task/changeState', {
@@ -20,10 +23,12 @@ async function changeState() {
     isDone: !props.task.isDone,
   });
 }
+
 </script>
 
 <template>
   <div
+    v-if="!showUpdate"
     class="flex flex-row flex-nowrap w-full justify-between items-center my-4 cursor-pointer"
   >
     <div class="flex p-1 items-center">
@@ -42,7 +47,7 @@ async function changeState() {
       </div>
     </div>
 
-    <div class="flex-auto" v-html="task.task"></div>
+    <div class="flex-auto" @click="showUpdate = true" v-html="task.task"></div>
 
     <div
       class="bg-gray-200 px-3 rounded-full text-gray-400 font-medium inline-flex items-center"
@@ -57,4 +62,24 @@ async function changeState() {
       {{ formatDate(task.modified_on) }}
     </div>
   </div>
+
+  <TaskUpdate
+    v-if="showUpdate"
+    :task-text="task.task"
+    @click-close="showUpdate = false"
+  >
+    <div
+      class="flex-none w-7 h-7 text-center rounded mr-3 active:opacity-30"
+      :class="[props.task.isDone ? 'bg-gray-400' : 'border border-gray-500']"
+      @click="changeState"
+    >
+      <Icon
+        v-if="props.task.isDone"
+        name="check"
+        :size="22"
+        color="white"
+        custom-class="w-full inline-flex"
+      />
+    </div>
+  </TaskUpdate>
 </template>

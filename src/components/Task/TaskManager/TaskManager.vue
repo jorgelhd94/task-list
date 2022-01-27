@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import {
   getAuth,
   taskCollection,
@@ -10,42 +10,53 @@ import {
   where,
   // onSnapshot,
 } from '../../../includes/firebase';
+import { showMsg } from '../../../includes/utils';
 import TaskPlus from '../TaskPlus/TaskPlus.vue';
 import TaskCreator from '../TaskCreator/TaskCreator.vue';
 import TaskList from '../TaskList/TaskList.vue';
 
 const showCreator = ref(false);
 const taskText = ref('');
+
+function updateText(newText) {
+  taskText.value = newText;
+}
+
+// Task List
 const tasks = ref([]);
 
-const sortComments = computed(() => {
-  return tasks.value.slice().sort((a, b) => {
-    if (this.sort === '1') {
-      return new Date(b.modified_on) - new Date(a.modified_on);
-    }
-    return new Date(a.modified_on) - new Date(b.modified_on);
-  });
-});
-
-async function getTasks() {
+const getTasks = async () => {
   let q = null;
   q = query(taskCollection, where('uid', '==', getAuth().currentUser.uid));
 
-  await onSnapshot(q, (querySnapshot) => {
-    tasks.value = [];
-    querySnapshot.forEach((document) => {
-      const task = {
-        ...document.data(),
-        docID: document.id,
-      };
-      console.log(task);
-      tasks.value.push(task);
-    });
-  });
-}
+  await onSnapshot(
+    q,
+    (querySnapshot) => {
+      const listTask = [];
+      querySnapshot.forEach((document) => {
+        const task = {
+          ...document.data(),
+          docID: document.id,
+        };
+        listTask.push(task);
+        tasks.value = [...listTask];
+      });
+    },
+    (error) => {
+      // ...
+      showMsg('Connection error!! ' + error, 'error');
+    }
+  );
+};
 
-getTasks();
-console.log(tasks.value);
+onMounted(getTasks);
+
+const sortTasks = computed(() => {
+  const taskList = [...tasks.value];
+  return taskList.sort((a, b) => {
+    return new Date(b.modified_on) - new Date(a.modified_on);
+  });
+});
 </script>
 
 <template>
@@ -58,6 +69,6 @@ console.log(tasks.value);
       @text-editor="updateText"
     />
 
-    <TaskList></TaskList>
+    <TaskList :tasks="sortTasks" />
   </div>
 </template>

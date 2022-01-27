@@ -1,4 +1,5 @@
 <script setup>
+/* eslint-disable vue/no-v-html */
 import { useStore } from 'vuex';
 import Icon from '../../../UI/Icon/Icon.vue';
 import { formatDate } from '../../../../includes/utils';
@@ -40,7 +41,8 @@ async function changeState() {
         />
       </div>
     </div>
-    <div class="flex-auto">{{ task.task }}</div>
+
+    <div class="flex-auto" v-html="task.task"></div>
 
     <div
       class="bg-gray-200 px-3 rounded-full text-gray-400 font-medium inline-flex items-center"

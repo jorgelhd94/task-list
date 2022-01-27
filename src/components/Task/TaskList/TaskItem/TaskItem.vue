@@ -1,4 +1,5 @@
 <script setup>
+import { useStore } from 'vuex';
 import Icon from '../../../UI/Icon/Icon.vue';
 import { formatDate } from '../../../../includes/utils';
 
@@ -9,6 +10,15 @@ const props = defineProps({
     required: true,
   },
 });
+
+const store = useStore();
+
+async function changeState() {
+  store.dispatch('task/changeState', {
+    id: props.task.docID,
+    isDone: !props.task.isDone,
+  });
+}
 </script>
 
 <template>
@@ -19,6 +29,7 @@ const props = defineProps({
       <div
         class="flex-none w-7 h-7 text-center rounded mr-3 active:opacity-30"
         :class="[props.task.isDone ? 'bg-gray-400' : 'border border-gray-500']"
+        @click="changeState"
       >
         <Icon
           v-if="props.task.isDone"

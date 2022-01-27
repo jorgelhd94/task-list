@@ -1,4 +1,11 @@
-import { getAuth, taskCollection, addDoc } from '../../includes/firebase';
+import {
+  getAuth,
+  taskCollection,
+  db,
+  doc,
+  addDoc,
+  updateDoc,
+} from '../../includes/firebase';
 
 export default {
   namespaced: true,
@@ -26,6 +33,13 @@ export default {
         ...task,
       });
       commit('toogleCreating');
+    },
+    async changeState(state, payload) {
+      const taskRef = doc(db, 'tasks', payload.id);
+
+      await updateDoc(taskRef, {
+        isDone: payload.isDone,
+      });
     },
   },
 };

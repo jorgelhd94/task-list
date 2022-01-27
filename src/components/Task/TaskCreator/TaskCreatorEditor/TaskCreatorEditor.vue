@@ -51,9 +51,7 @@ function inputEditor(event) {
 }
 
 function keyPress(event) {
-  if (event.which !== 13) {
-    inputEditor(event);
-  } else {
+  if (event.which === 13) {
     event.preventDefault();
   }
 }

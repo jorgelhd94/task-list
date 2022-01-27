@@ -84,4 +84,8 @@ const props = defineProps({
 button[disabled] {
   cursor: not-allowed;
 }
+
+button:active {
+  opacity: 0.5;
+}
 </style>

@@ -15,6 +15,10 @@ const props = defineProps({
     type: Number,
     required: true,
   },
+  customClass: {
+    type: String,
+    default: '',
+  },
 });
 
 function iconSvg() {
@@ -22,6 +26,7 @@ function iconSvg() {
     width: props.size,
     height: props.size,
     color: props.color,
+    class: props.customClass,
   });
 }
 </script>

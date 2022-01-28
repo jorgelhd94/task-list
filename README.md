@@ -1,6 +1,8 @@
 # Simple Task
 
-Simple Task is a Vue 3 app to to manage To-Do tasks. This application was made to pass the Cuban Engineer technical test.
+Simple Task is a Vue 3 app to manage To-Do tasks. This application was made to pass the Cuban Engineer technical test.
+
+**Important**: This app uses firebase, you may need to use a VPN
 
 This project is hosted [here](https://tasklistce.netlify.app/).
 

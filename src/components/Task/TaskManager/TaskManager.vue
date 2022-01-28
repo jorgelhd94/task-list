@@ -14,6 +14,7 @@ import { showMsg } from '../../../includes/utils';
 import TaskPlus from '../TaskPlus/TaskPlus.vue';
 import TaskCreator from '../TaskCreator/TaskCreator.vue';
 import TaskList from '../TaskList/TaskList.vue';
+import Toogle from '../../UI/Toogle/Toogle.vue';
 
 const showCreator = ref(false);
 const taskText = ref('');
@@ -25,6 +26,8 @@ function updateText(newText) {
 // Task List
 const tasksUndone = ref([]);
 const tasksDone = ref([]);
+const showListDone = ref(true);
+const toogleListView = () => (showListDone.value = !showListDone.value);
 
 const getTasks = async () => {
   let q = null;
@@ -101,28 +104,50 @@ const sortTasksUndone = computed(() => {
 
 <template>
   <div>
-    <TaskPlus v-if="!showCreator" @click-btn="showCreator = true" />
-    <TaskCreator
-      v-if="showCreator"
-      :task-text="taskText"
-      @click-close="showCreator = false"
-      @text-editor="updateText"
-    />
+    <div class="flex flex-row mb-2 w-full justify-between items-center">
+      <h1 class="text-2xl">Tasks</h1>
+      <Toogle @click="toogleListView" @toogle-change="showListDone = !$event" />
+    </div>
 
-    <TaskList :tasks="sortTasksDone" />
-    <TaskList :tasks="sortTasksUndone" />
+    <div v-if="showListDone">
+      <TaskPlus v-if="!showCreator" @click-btn="showCreator = true" />
+      <TaskCreator
+        v-if="showCreator"
+        :task-text="taskText"
+        @click-close="showCreator = false"
+        @text-editor="updateText"
+      />
 
-    <div
-      v-if="sortTasksDone.length === 0"
-      class="flex flex-col w-full items-center"
-    >
-      <div class="relative">
-        <img width="300" src="../../../assets/img/list.svg" alt="" />
-        <h1
-          class="absolute bottom-0 left-1/4 text-3xl font-bold text-gray-500 tracking-wider"
-        >
-          Empty list
-        </h1>
+      <TaskList :tasks="sortTasksUndone" />
+      <div
+        v-if="sortTasksUndone.length === 0"
+        class="flex flex-col w-full items-center"
+      >
+        <div class="relative">
+          <img width="300" src="../../../assets/img/list.svg" alt="" />
+          <h1
+            class="absolute bottom-0 left-1/4 text-3xl font-bold text-gray-500 tracking-wider"
+          >
+            Empty list
+          </h1>
+        </div>
+      </div>
+    </div>
+
+    <div v-else>
+      <TaskList :tasks="sortTasksDone" />
+      <div
+        v-if="sortTasksDone.length === 0"
+        class="flex flex-col w-full items-center"
+      >
+        <div class="relative">
+          <img width="300" src="../../../assets/img/done.svg" alt="" />
+          <h1
+            class="absolute bottom-0 left-1/4 text-3xl font-bold text-gray-500 tracking-wider"
+          >
+            All done!!
+          </h1>
+        </div>
       </div>
     </div>
   </div>

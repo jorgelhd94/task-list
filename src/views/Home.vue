@@ -6,9 +6,6 @@ import TaskManager from '../components/Task/TaskManager/TaskManager.vue';
 <template>
   <div>
     <Layout>
-      <div class="flex flex-row mb-2">
-        <h1 class="text-2xl">Tasks</h1>
-      </div>
       <TaskManager />
     </Layout>
   </div>

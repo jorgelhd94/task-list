@@ -95,7 +95,7 @@ function logout() {
                 </div>
                 <div
                   v-show="menuOpen"
-                  class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5"
+                  class="origin-top-right absolute z-30 right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5"
                 >
                   <div
                     class="py-1"

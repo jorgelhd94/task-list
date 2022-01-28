@@ -29,12 +29,15 @@ const onSubmit = handleSubmit(async (values) => {
   const auth = getAuth();
   loading.value = true;
 
+  if (auth.currentUser) {
+    await store.dispatch('signout');
+  }
   await signInWithEmailAndPassword(auth, values.email, values.password)
     .then(() => {
       // Signed in
       store.commit('toogleAuth');
       showMsg('Welcome!!', 'info');
-      
+
       router.push({
         name: 'home',
       });

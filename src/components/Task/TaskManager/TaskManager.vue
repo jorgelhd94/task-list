@@ -39,8 +39,8 @@ const getTasks = async () => {
           docID: document.id,
         };
         listTask.push(task);
-        tasks.value = [...listTask];
       });
+      tasks.value = [...listTask];
     },
     (error) => {
       // ...

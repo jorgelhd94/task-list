@@ -14,8 +14,9 @@ const props = defineProps({
   },
 });
 
-const store = useStore();
 const showUpdate = ref(false);
+
+const store = useStore();
 
 async function changeState() {
   store.dispatch('task/changeState', {
@@ -46,13 +47,16 @@ async function changeState() {
       </div>
     </div>
 
+    <!-- Editor -->
     <div
-      class="flex-auto w-3/5 md:w-4/5"
+      class="flex-auto w-3/5 md:w-4/5 border-0"
       contenteditable="true"
       @click="showUpdate = true"
+      @keydown="showUpdate = true"
       v-html="task.task"
     ></div>
 
+    <!-- Date -->
     <div
       class="flex-none w-max bg-gray-200 px-3 rounded-full text-gray-400 font-medium inline-flex items-center"
       style="color: rgb(138, 148, 166)"
@@ -69,6 +73,7 @@ async function changeState() {
 
   <TaskUpdate
     v-if="showUpdate"
+    :task-id="task.docID"
     :task-text="task.task"
     @click-close="showUpdate = false"
   >
@@ -87,3 +92,12 @@ async function changeState() {
     </div>
   </TaskUpdate>
 </template>
+
+<style scoped>
+div[contenteditable]:hover {
+  cursor: pointer;
+}
+div[contenteditable]:focus {
+  outline: none;
+}
+</style>

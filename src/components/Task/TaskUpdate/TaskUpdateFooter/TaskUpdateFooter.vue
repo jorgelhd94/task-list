@@ -1,29 +1,62 @@
 <script setup>
-import { computed } from 'vue';
-import { useStore } from 'vuex';
 import ButtonControl from '../../../UI/Buttons/ButtonControl.vue';
 import ButtonOption from '../../../UI/Buttons/ButtonOption.vue';
 
 // eslint-disable-next-line no-undef
 const props = defineProps({
+  isTextEqual: {
+    type: Boolean,
+    required: true,
+  },
   isTextEmpty: {
     type: Boolean,
     required: true,
   },
+  loading: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 // eslint-disable-next-line no-undef
-const emit = defineEmits(['clickCancel', 'clickSubmit']);
-
-const store = useStore();
-const isCreating = computed(() => store.state.task.isCreating);
+const emit = defineEmits(['clickCancel', 'clickDelete', 'clickSubmit']);
 
 function submitButton() {
   if (props.isTextEmpty) {
+    emit('clickDelete');
+  } else if (props.isTextEqual) {
     emit('clickCancel');
-  } else if (!isCreating.value) {
+  } else {
     emit('clickSubmit');
   }
+}
+
+// Customize submit button
+function getLabel() {
+  let label = 'Save';
+  if (props.isTextEmpty) {
+    label = 'Delete';
+  } else if (props.isTextEqual) {
+    label = 'Ok';
+  }
+
+  return label;
+}
+
+function getIcon() {
+  let label = 'save';
+  if (props.isTextEmpty) {
+    label = 'trash';
+  } else if (props.isTextEqual) {
+    label = 'x';
+  }
+
+  return label;
+}
+
+function getClass() {
+  const colorBg = props.isTextEmpty ? 'bg-red-600' : 'bg-blue-700';
+  return colorBg + ' text-white';
 }
 </script>
 
@@ -69,13 +102,22 @@ function submitButton() {
           label="Estimation"
           :show-icon="false"
           :active="!props.isTextEmpty"
-          class="md:mb-0 sm:mb-2"
+          class="mr-1 md:mb-0 sm:mb-2"
         >
           <span
             class="lg:mr-2 border-2 border-gray-400 rounded-full px-2 text-gray-400 text-sm"
             >0</span
           >
         </ButtonOption>
+        <ButtonOption
+          v-if="!isTextEmpty"
+          label="Delete"
+          icon="trash"
+          icon-color="rgb(220 38 38)"
+          :active="!props.isTextEmpty"
+          class="md:mb-0 sm:mb-2"
+          @click="emit('clickDelete')"
+        />
       </div>
     </div>
     <!-- Submit -->
@@ -90,13 +132,13 @@ function submitButton() {
           @click="emit('clickCancel')"
         />
         <ButtonControl
-          :label="props.isTextEmpty ? 'Ok' : 'Save'"
-          :is-loading="isCreating"
+          :label="getLabel()"
+          :is-loading="loading"
           :show-icon="true"
-          :icon="props.isTextEmpty ? 'x' : 'save'"
+          :icon="getIcon()"
           icon-color="#ffffff"
           icon-class="inline lg:hidden "
-          custom-class="bg-blue-700 text-white"
+          :custom-class="getClass()"
           :active="true"
           @click="submitButton"
         />

@@ -5,6 +5,7 @@ import {
   doc,
   addDoc,
   updateDoc,
+  deleteDoc,
 } from '../../includes/firebase';
 
 export default {
@@ -33,6 +34,18 @@ export default {
         ...task,
       });
       commit('toogleCreating');
+    },
+    async updateTask(state, payload) {
+      const taskRef = doc(db, 'tasks', payload.id);
+
+      await updateDoc(taskRef, {
+        task: payload.text,
+        modified_on: new Date().toString(),
+        uid: getAuth().currentUser.uid,
+      });
+    },
+    async deleteTask(state, payload) {
+      await deleteDoc(doc(db, 'tasks', payload));
     },
     async changeState(state, payload) {
       const taskRef = doc(db, 'tasks', payload.id);

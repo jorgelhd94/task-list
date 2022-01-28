@@ -1,7 +1,24 @@
-# Vue 3 + Vite
+# Simple Task List
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Simple Task List is a Vue 3 app to to manage To-Do tasks. This application was made to pass the Cuban Engineer technical test.
 
-## Recommended IDE Setup
+This project is hosted [here](https://tasklistce.netlify.app/).
 
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+## Project setup
+```
+yarn install
+```
+
+### Compiles and hot-reloads for development
+```
+yarn serve
+```
+
+### Compiles and minifies for production
+```
+yarn build
+```
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
+

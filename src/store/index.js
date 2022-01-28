@@ -6,14 +6,15 @@ export default createStore({
   modules: {
     task,
   },
-  state() {
-    return {
-      userLoggedIn: false,
-    };
+  state: {
+    userLoggedIn: false,
   },
   mutations: {
     toogleAuth(state) {
       state.userLoggedIn = !state.userLoggedIn;
+    },
+    setLogout(state) {
+      state.userLoggedIn = false;
     },
   },
   actions: {
@@ -25,7 +26,7 @@ export default createStore({
     },
     async signout({ commit }) {
       await signOut(getAuth());
-      commit('toogleAuth');
+      commit('setLogout');
     },
   },
 });

@@ -36,11 +36,10 @@ const onSubmit = handleSubmit(async (values) => {
     .then(() => {
       // Signed in
       store.commit('toogleAuth');
-      showMsg('Welcome!!', 'info');
-
       router.push({
         name: 'home',
       });
+      showMsg('Welcome!!', 'info');
       // ...
     })
     .catch((error) => {

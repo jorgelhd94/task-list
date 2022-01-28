@@ -1,6 +1,6 @@
-# Simple Task List
+# Simple Task
 
-Simple Task List is a Vue 3 app to to manage To-Do tasks. This application was made to pass the Cuban Engineer technical test.
+Simple Task is a Vue 3 app to to manage To-Do tasks. This application was made to pass the Cuban Engineer technical test.
 
 This project is hosted [here](https://tasklistce.netlify.app/).
 

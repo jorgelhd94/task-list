@@ -18,9 +18,9 @@ function changeSign() {
     <div
       class="flex-none relative w-full md:w-2/3 lg:w-1/3 bg-gray-200 rounded-lg shadow"
     >
-
       <div class="flex flex-col p-8 items-center">
-        <h1>Simple Task List</h1>
+        <img src="../assets/img/iconapp.svg" width="50" alt="Logo" />
+        <h1>Simple Task</h1>
 
         <div class="flex-1 mt-4">
           <div class="flex flex-row">
@@ -53,7 +53,7 @@ function changeSign() {
       </div>
 
       <footer class="flex-auto mb-4">
-        <p class="text-sm text-center text-gray-500">
+        <p class="text-sm text-center text-gray-500 mb-3">
           Created by
           <a
             href="https://github.com/jorgelhd94/"
@@ -63,6 +63,12 @@ function changeSign() {
           >
         </p>
       </footer>
+
+      <div class="flex justify-center absolute right-5 bottom-3">
+        <a href="https://cuban.engineer/" target="_blanck">
+        <img src="../assets/img/logo.svg" width="80" alt="Logo" />
+        </a>
+      </div>
     </div>
   </div>
 </template>

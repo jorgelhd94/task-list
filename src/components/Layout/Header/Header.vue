@@ -45,9 +45,9 @@ function logout() {
     <div class="max-w-7xl mx-auto px-8">
       <div class="flex items-center justify-between h-16">
         <div class="flex items-center">
-          <router-link to="/" class="flex-shrink-0">
-            <h1 class="h-8 w-full text-lg">Simple Task List</h1>
-            <!-- <img class="h-8 w-8" src="/icons/rocket.svg" alt="Workflow" /> -->
+          <router-link to="/" class="flex-auto">
+            <img class="inline mr-2" src="../../../assets/img/iconapp.svg" width="40" alt="Logo" />
+            <h1 class="h-8 hidden md:inline text-lg">Simple Task</h1>
           </router-link>
         </div>
         <div class="block">

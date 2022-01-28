@@ -106,49 +106,96 @@ const sortTasksUndone = computed(() => {
   <div>
     <div class="flex flex-row mb-2 w-full justify-between items-center">
       <h1 class="text-2xl">Tasks</h1>
-      <Toogle @click="toogleListView" @toogle-change="showListDone = !$event" />
-    </div>
-
-    <div v-if="showListDone">
-      <TaskPlus v-if="!showCreator" @click-btn="showCreator = true" />
-      <TaskCreator
-        v-if="showCreator"
-        :task-text="taskText"
-        @click-close="showCreator = false"
-        @text-editor="updateText"
+      <Toogle
+        :text1="
+          tasksUndone.length < 100 ? tasksUndone.length.toString() : '(+99)'
+        "
+        :text2="tasksDone.length < 100 ? tasksDone.length.toString() : '(+99)'"
+        @click="toogleListView"
+        @toogle-change="showListDone = !$event"
       />
-
-      <TaskList :tasks="sortTasksUndone" />
-      <div
-        v-if="sortTasksUndone.length === 0"
-        class="flex flex-col w-full items-center"
-      >
-        <div class="relative">
-          <img width="300" src="../../../assets/img/list.svg" alt="" />
-          <h1
-            class="absolute bottom-0 left-1/4 text-3xl font-bold text-gray-500 tracking-wider"
-          >
-            Empty list
-          </h1>
-        </div>
-      </div>
     </div>
 
-    <div v-else>
-      <TaskList :tasks="sortTasksDone" />
-      <div
-        v-if="sortTasksDone.length === 0"
-        class="flex flex-col w-full items-center"
-      >
-        <div class="relative">
-          <img width="300" src="../../../assets/img/done.svg" alt="" />
-          <h1
-            class="absolute bottom-0 left-1/4 text-3xl font-bold text-gray-500 tracking-wider"
-          >
-            All done!!
-          </h1>
+    <transition name="fade" mode="in-out">
+      <div>
+        <div v-show="showListDone">
+          <TaskPlus v-if="!showCreator" @click-btn="showCreator = true" />
+          <TaskCreator
+            v-if="showCreator"
+            :task-text="taskText"
+            @click-close="showCreator = false"
+            @text-editor="updateText"
+          />
+
+          <TaskList :tasks="sortTasksUndone" />
+
+          <transition name="bounce" mode="out-in">
+            <div
+              v-if="sortTasksUndone.length === 0"
+              class="flex flex-col w-full items-center"
+            >
+              <div class="relative">
+                <img width="300" src="../../../assets/img/list.svg" alt="" />
+                <h1
+                  class="absolute bottom-0 left-1/4 text-3xl font-bold text-gray-500 tracking-wider"
+                >
+                  Empty list
+                </h1>
+              </div>
+            </div>
+          </transition>
+        </div>
+
+        <div v-show="!showListDone">
+          <TaskList :tasks="sortTasksDone" />
+
+          <transition name="bounce" mode="out-in">
+            <div
+              v-if="sortTasksDone.length === 0"
+              class="flex flex-col w-full items-center"
+            >
+              <div class="relative">
+                <img width="300" src="../../../assets/img/done.svg" alt="" />
+                <h1
+                  class="absolute bottom-0 left-1/4 text-3xl font-bold text-gray-500 tracking-wider"
+                >
+                  All done!!
+                </h1>
+              </div>
+            </div>
+          </transition>
         </div>
       </div>
-    </div>
+    </transition>
   </div>
 </template>
+
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.bounce-enter-active {
+  animation: bounce-in 0.2s;
+}
+.bounce-leave-active {
+  animation: bounce-in 0.2s reverse;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+</style>

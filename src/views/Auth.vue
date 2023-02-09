@@ -63,12 +63,6 @@ function changeSign() {
           >
         </p>
       </footer>
-
-      <div class="flex justify-center absolute right-5 bottom-3">
-        <a href="https://cuban.engineer/" target="_blanck">
-        <img src="../assets/img/logo.svg" width="80" alt="Logo" />
-        </a>
-      </div>
     </div>
   </div>
 </template>
